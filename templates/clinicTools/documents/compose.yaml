@@ -1,0 +1,55 @@
+name: documents
+services:
+    application:
+        image: clinictools.dev/documents/app:${VERSION:-8.0.0}
+        hostname: application
+        restart: unless-stopped
+        environment:
+            HOST: ${APP_HOST:-application}
+            PORT: ${APP_PORT:-8000}
+            LICENSE: ${LICENSE:?no license}
+            APISECRET: ${APISECRET:?no secret}
+            INIT: ${APP_INIT:-1}
+
+            DATABASE_HOST: ${DATABASE_HOST:-database}
+            DATABASE_PORT: ${DATABASE_PORT:-5432}
+            DATABASE_USER: ${DATABASE_USER:-documents}
+            DATABASE_PASSWORD: ${DATABASE_PASSWORD:-documents}
+
+            PDF_HOST: ${PDF_HOST:-pdf}
+            PDF_PORT: ${PDF_PORT:-8000}
+
+            SPELLCHECK_HOST: ${SPELLCHECK_HOST:-spellcheck}
+            SPELLCHECK_PORT: ${SPELLCHECK_PORT:-8000}
+        ports:
+            - ${PORT:-80}:${APP_PORT:-8000}
+        volumes:
+            - ${APP_PATH:-C:/data/app}:C:/data
+    database:
+        image: clinictools.dev/documents/database:${VERSION:-8.0.0}
+        hostname: database
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: ${DATABASE_USER:-documents}
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-documents}
+        volumes:
+            - ${DATABASE_PATH:-C:/data/database}:C:/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U documents"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+    pdf:
+        image: clinictools.dev/documents/pdf:${VERSION:-8.0.0}
+        hostname: pdf
+        restart: unless-stopped
+        environment:
+            PORT: ${PDF_PORT:-8000}
+        volumes:
+            - ${FONTS_PATH:-C:/data/app/fonts}:C:/fonts
+    spellcheck:
+        image: clinictools.dev/documents/spellcheck:${VERSION:-8.0.0}
+        hostname: spellcheck
+        restart: unless-stopped
+        environment:
+            PORT: ${SPELLCHECK_PORT:-8000}
