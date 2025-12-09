@@ -1,7 +1,7 @@
 name: documents
 services:
     application:
-        image: clinictools.dev/documents/app:${VERSION:-8.0.0}
+        image: clinictools.dev/documents/app:${VERSION:-8.5.4}
         hostname: application
         restart: unless-stopped
         environment:
@@ -25,8 +25,13 @@ services:
             - ${PORT:-80}:${APP_PORT:-8000}
         volumes:
             - ${APP_PATH:-C:/data/app}:C:/data
+        healthcheck:
+            test: ["CMD", "node ./health.mjs"]
+            interval: 10s
+            timeout: 5s
+            retries: 1
     database:
-        image: clinictools.dev/documents/database:${VERSION:-8.0.0}
+        image: clinictools.dev/documents/database:${VERSION:-8.5.4}
         hostname: database
         restart: unless-stopped
         environment:
@@ -35,21 +40,31 @@ services:
         volumes:
             - ${DATABASE_PATH:-C:/data/database}:C:/data
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U documents"]
+            test: ["CMD", "pg_isready -U documents"]
             interval: 10s
             timeout: 5s
-            retries: 5
+            retries: 1
     pdf:
-        image: clinictools.dev/documents/pdf:${VERSION:-8.0.0}
+        image: clinictools.dev/documents/pdf:${VERSION:-8.5.4}
         hostname: pdf
         restart: unless-stopped
         environment:
             PORT: ${PDF_PORT:-8000}
         volumes:
             - ${FONTS_PATH:-C:/data/app/fonts}:C:/fonts
+        healthcheck:
+            test: ["CMD", "node ./health.mjs"]
+            interval: 10s
+            timeout: 5s
+            retries: 1
     spellcheck:
-        image: clinictools.dev/documents/spellcheck:${VERSION:-8.0.0}
+        image: clinictools.dev/documents/spellcheck:${VERSION:-8.5.4}
         hostname: spellcheck
         restart: unless-stopped
         environment:
             PORT: ${SPELLCHECK_PORT:-8000}
+        healthcheck:
+            test: ["CMD", "curl.exe", "-fsS", "-X", "POST", "-H", "Content-Type: application/json", "-d", "{\"language\":\"de-DE\",\"text\":[\"ping\"]}", "http://localhost:${SPELLCHECK_PORT:-8000}/check"]
+            interval: 10s
+            timeout: 5s
+            retries: 1
