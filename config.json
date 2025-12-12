@@ -3,5 +3,5 @@
         "10.0.0.1": ["198.51.100.1:4242"]
     },
     "lighthouses": ["10.0.0.1"],
-    "ca": "-----BEGIN NEBULA CERTIFICATE-----\r\nCkgKFlRoZSBPbmUtSG91ciBOZWJ1bGEgQ0Eo/pL7jAYwjq/7jAY6IDIi7yqkRV9F\r\n1+tozxvnHCmuuuwdArt7YbMMdCR4AYm/QAESQHBitbcetbJ06RQckqGi+hXJXd/U\r\nTXKEul4TxP4Qxmd7g+cHDE6oYZhRwup+1xg/Sv9bMg2E2/LNXKV3rNf1Yw8=\r\n-----END NEBULA CERTIFICATE-----"
+    "ca": "-----BEGIN NEBULA CERTIFICATE V2-----\r\nMIGCoByAC0NsaW5pY1Rvb2xzhAH/hQRpO+fuhgRrHRtugiAEX9wV86+NBWABtyhM\r\nRH4FYgwlyMEIkhiDtWm9oDyQzINA+SUILX5u23jN1pPu5QFMsl9cqo4Wnj85ocw3\r\nLxQa7EPa5zC0MK6b8PNI857rh4rGVdvuvp2eSEDh98pnliKhBw==\r\n-----END NEBULA CERTIFICATE V2-----"
 }
