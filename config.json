@@ -2,5 +2,6 @@
     "static_host_map": {
         "10.0.0.1": ["198.51.100.1:4242"]
     },
-    "lighthouses": ["10.0.0.1"]
+    "lighthouses": ["10.0.0.1"],
+    "ca": "-----BEGIN NEBULA CERTIFICATE-----\r\nCkgKFlRoZSBPbmUtSG91ciBOZWJ1bGEgQ0Eo/pL7jAYwjq/7jAY6IDIi7yqkRV9F\r\n1+tozxvnHCmuuuwdArt7YbMMdCR4AYm/QAESQHBitbcetbJ06RQckqGi+hXJXd/U\r\nTXKEul4TxP4Qxmd7g+cHDE6oYZhRwup+1xg/Sv9bMg2E2/LNXKV3rNf1Yw8=\r\n-----END NEBULA CERTIFICATE-----"
 }
